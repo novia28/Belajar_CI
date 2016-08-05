@@ -53,10 +53,9 @@ class Home extends CI_Controller {
 		
 		//$del = "DELETE FROM tmhs WHERE nim='$id'";
 		//$query = $this->db->query($del);
-		$this->db->where('nim', $id);
-		$query = $this->db->delete('tmhs');
 		
-		if($query == TRUE){
+		$this->load->model("mahasiswa_model");
+		if($this->mahasiswa_model->deleteData($id) == TRUE){
 			$this->session->set_flashdata('Message', 'Data telah terhapus!');
 			redirect('/home/index');
 		}else{
@@ -64,10 +63,22 @@ class Home extends CI_Controller {
 		}
 	}
 	
-	public function edit_mhs($id){
-		$this->load->database();
+	public function show_edit_mhs($id){
 		$this->load->helper('url');
-		$this->load->library('session');
+		$this->load->model("mahasiswa_model");
+		$this->load->database();
 		
+		if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+			$data['show'] = $this->mahasiswa_model->showEditData($id);
+			$data['id'] = $id;
+			$this->load->view('form_edit_mahasiswa', $data);
+		}
+		else{
+			if($this->mahasiswa_model->updateData($id) == true){
+				redirect('/home/index');
+			}else{
+				echo "error!";
+			}
+		}
 	}
 }

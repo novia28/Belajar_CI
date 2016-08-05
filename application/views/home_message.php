@@ -21,7 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<tr>
 		<td><?php echo $s->nim; ?></td>
 		<td><?php echo $s->nama; ?></td>
-		<td><?php echo anchor('home/delete_mhs/'.$s->nim, 'Delete Data'); ?></td>
+		<td><?php echo anchor('home/delete_mhs/'.$s->nim, 'Delete'); ?></td>
+		<td><?php echo anchor('home/show_edit_mhs/'.$s->nim, 'Edit'); ?></td>
 	</tr>
 	
 	<?php } ?>

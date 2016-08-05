@@ -23,6 +23,29 @@ class Mahasiswa_model extends CI_Model{
 		);
 
 		return $this->db->insert('tmhs', $data);
-		
 	}
+	
+	public function deleteData($id){
+		$this->db->where('nim', $id);
+		return $this->db->delete('tmhs');
+	}
+	
+	public function showEditData($id){
+		$this->db->select('*');
+		$this->db->from('tmhs');
+		$this->db->where('nim', $id);
+		$query = $this->db->get();
+		$result = $query->result();
+		return $result;
+	}
+	
+	public function updateData($id){
+		$data = array(
+			'nama' => $this->input->post('nama')
+		);
+		
+		$this->db->where('nim', $id);
+		return $this->db->update('tmhs', $data);
+	}
+	
 }
